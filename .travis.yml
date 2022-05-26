@@ -1,0 +1,13 @@
+language: java
+arch:
+  - arm64
+os:
+  - linux
+services:
+  - docker
+before_install:
+  - docker login -u "$DOCKER_USERNAME" -p $DOCKER_PASSWORD
+script: 
+  - export BUILD_TAG=`date +'%Y%m%d'`
+  - docker build . -f Dockerfile -t toyangdon/kubernetes-event-exporter:$BUILD_TAG
+  - docker push toyangdon/kubernetes-event-exporter:$BUILD_TAG
